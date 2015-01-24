@@ -12,7 +12,8 @@ public class NetworkManager : MonoBehaviour {
 	private HostData[] hostList;											// list of open game servers
 
 	public GameObject playerPrefab;											// the player object
-	public Transform spawnPoint;											// the spawning point
+	public Transform spawnServer;											// the spawning point
+	public Transform spawnClient;
 
 	public Transform previewCamera;
 	public Canvas canvas;
@@ -37,7 +38,7 @@ public class NetworkManager : MonoBehaviour {
 
 		void OnServerInitialized(){
 			Debug.Log("Server initialized!");
-			SpawnPlayer();
+			SpawnPlayer(spawnServer.position);
 			DestroyCamera();
 			ActivateCanvas();
 		}
@@ -58,13 +59,13 @@ public class NetworkManager : MonoBehaviour {
 
 		void OnConnectedToServer(){
 			Debug.Log("Server joined!");
-			SpawnPlayer();
+			SpawnPlayer(spawnClient.position);
 			DestroyCamera();
 			ActivateCanvas();
 		}
 
-	private void SpawnPlayer(){
-		Network.Instantiate(playerPrefab, spawnPoint.position, Quaternion.identity, 0);
+	private void SpawnPlayer(Vector3 position){
+		Network.Instantiate(playerPrefab, position, Quaternion.identity, 0);
 	}
 
 		void OnPlayerDisconnected(NetworkPlayer player){

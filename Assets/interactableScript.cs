@@ -46,10 +46,10 @@ public class interactableScript : MonoBehaviour {
 	#region methods
 	[RPC]
 	public void OnActivation(){
-		activated = true;
-		if (button){
-			light.Switch();
-		}
+		if (this.enabled) activated = true;
+//		if (button){
+//			light.Switch();
+//		}
 
 		if (networkView.isMine){
 			networkView.RPC("OnActivation", RPCMode.OthersBuffered, null);
@@ -58,10 +58,10 @@ public class interactableScript : MonoBehaviour {
 
 	[RPC]
 	public void OnDeactivation(){
-		activated = false;
-		if (button){
-			light.Switch();
-		}
+		if (this.enabled) activated = false;
+//		if (button){
+//			light.Switch();
+//		}
 
 		if (networkView.isMine){
 			networkView.RPC("OnActivation", RPCMode.OthersBuffered, null);

@@ -73,7 +73,7 @@ public class RigidbodyFPSController : MonoBehaviour {
 			// Interact with items in sight
 			RaycastHit hit;
 			if (Physics.Raycast(camera.position, camera.transform.forward, out hit, maxInteractionDistance)){
-				Debug.Log (hit);
+//				Debug.Log (hit);
 				if (Input.GetButtonDown("Use") && hit.transform.gameObject.tag == "Interactable"){
 					interactableScript interactionScript = hit.transform.gameObject.GetComponent<interactableScript>();
 					NetworkViewID hitNetworkViewID = hit.transform.GetComponent<NetworkView>().viewID;
@@ -160,9 +160,10 @@ public class RigidbodyFPSController : MonoBehaviour {
 
 	#region colliders
 	void OnCollisionStay(Collision other){
-		if (other.gameObject.tag == "Ground"){
-			grounded = true;
-		}
+//		if (other.gameObject.tag == "Ground"){
+//			grounded = true;
+//		}
+		grounded = true;
 	}
 	#endregion
 
