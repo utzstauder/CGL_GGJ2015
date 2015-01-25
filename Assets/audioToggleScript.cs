@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+[RequireComponent (typeof(AudioSource))]
 public class audioToggleScript : MonoBehaviour {
 
 	#region private variables
@@ -10,6 +12,8 @@ public class audioToggleScript : MonoBehaviour {
 	private bool stayOn;
 	[SerializeField]
 	private bool stayOff;
+	[SerializeField]
+	private bool oneShot;
 	#endregion
 	
 	
@@ -34,13 +38,26 @@ public class audioToggleScript : MonoBehaviour {
 		if (button.enabled){
 			if (onOnOn && button.activated && !audio.enabled){
 				audio.enabled = true;
+
+				if (oneShot){
+					audio.loop = false;
+					audio.Play();
+				}
+
 				if (stayOn) Destroy(this, 0);
 			} else if (onOnOn && !button.activated && audio.enabled) audio.enabled = false;
 
 			if (!onOnOn && button.activated && audio.enabled){
 				audio.enabled = false;
 				if (stayOff) Destroy (this, 0);
-			} else if (!onOnOn && !button.activated && !audio.enabled) audio.enabled = true;
+			} else if (!onOnOn && !button.activated && !audio.enabled){
+				audio.enabled = true;
+
+				if (oneShot){
+					audio.loop = false;
+					audio.Play();
+				}
+			}
 		}
 //		if (!onOnOn){
 //			if (button.activated && !stayOn){
